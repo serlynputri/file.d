@@ -24,7 +24,7 @@ func TestProvierWatcherPaths(t *testing.T) {
 				OffsetsFile: "offset.json",
 			},
 			expectedPathes: Paths{
-				Include: []string{"**/*"},
+				Include: []string{"/var/log/**/*"},
 			},
 		},
 		{
@@ -35,7 +35,7 @@ func TestProvierWatcherPaths(t *testing.T) {
 				OffsetsFile:     "offset.json",
 			},
 			expectedPathes: Paths{
-				Include: []string{"**/error.log"},
+				Include: []string{"/var/log/**/error.log"},
 			},
 		},
 		{
@@ -47,7 +47,7 @@ func TestProvierWatcherPaths(t *testing.T) {
 				OffsetsFile:     "offset.json",
 			},
 			expectedPathes: Paths{
-				Include: []string{"nginx-ingress-*/error.log"},
+				Include: []string{"/var/log/nginx-ingress-*/error.log"},
 			},
 		},
 		{
@@ -58,7 +58,7 @@ func TestProvierWatcherPaths(t *testing.T) {
 				OffsetsFile: "offset.json",
 			},
 			expectedPathes: Paths{
-				Include: []string{"nginx-ingress-*/*"},
+				Include: []string{"/var/log/nginx-ingress-*/*"},
 			},
 		},
 		{
@@ -69,11 +69,11 @@ func TestProvierWatcherPaths(t *testing.T) {
 				DirPattern:      "nginx-ingress-*",
 				OffsetsFile:     "offset.json",
 				Paths: Paths{
-					Include: []string{"access.log"},
+					Include: []string{"/var/log/access.log"},
 				},
 			},
 			expectedPathes: Paths{
-				Include: []string{"access.log"},
+				Include: []string{"/var/log/access.log"},
 			},
 		},
 	}

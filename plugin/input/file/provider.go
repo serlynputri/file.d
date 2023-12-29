@@ -129,12 +129,12 @@ func NewJobProvider(config *Config, possibleOffsetCorruptionMetric, errorOpenFil
 		if config.DirPattern == "*" {
 			config.Paths.Include = append(
 				config.Paths.Include,
-				filepath.Join("**", config.FilenamePattern),
+				filepath.Join(config.WatchingDir, filepath.Join("**", config.FilenamePattern)),
 			)
 		} else {
 			config.Paths.Include = append(
 				config.Paths.Include,
-				filepath.Join(config.DirPattern, config.FilenamePattern),
+				filepath.Join(config.WatchingDir, filepath.Join(config.DirPattern, config.FilenamePattern)),
 			)
 		}
 	}
