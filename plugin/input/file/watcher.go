@@ -147,10 +147,12 @@ func (w *watcher) notify(e notify.Event, path string) {
 
 	if stat.IsDir() {
 		dirFilename := filename
+	check_dir:
 		for {
 			for _, path := range w.basePaths {
 				if path == dirFilename {
 					w.tryAddPath(filename)
+					break check_dir
 				}
 			}
 			if dirFilename == w.commonPath {
@@ -159,6 +161,20 @@ func (w *watcher) notify(e notify.Event, path string) {
 			dirFilename = filepath.Dir(dirFilename)
 		}
 		return
+	}
+
+	dirFilename := filepath.Dir(filename)
+check_file:
+	for {
+		for _, path := range w.basePaths {
+			if path == dirFilename {
+				break check_file
+			}
+		}
+		if dirFilename == w.commonPath {
+			return
+		}
+		dirFilename = filepath.Dir(dirFilename)
 	}
 
 	w.logger.Infof("%s %s", e, path)
